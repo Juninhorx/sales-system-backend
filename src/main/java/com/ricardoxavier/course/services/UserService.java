@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.ricardoxavier.course.entities.User;
 import com.ricardoxavier.course.repositories.UserRepository;
+import com.ricardoxavier.course.services.exceptions.ResourceNotFoundException;
 
 // Could be @Component but the @Service is semantic because its an UserSERVICE
 @Service
@@ -22,7 +23,7 @@ public class UserService {
 	
 	public User findById(Long id) {
 		Optional<User> obj = repository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 	
 	public User insert(User obj) {
