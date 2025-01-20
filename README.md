@@ -24,7 +24,7 @@ Pré-requisitos: Java 17
 
 ```bash
 # clonar repositório
-git clone https://github.com/Juninhorx/workshop-springboot3-jpa.git
+git clone https://github.com/Juninhorx/sales-system-backend.git
 
 # executar o projeto
 ./mvnw spring-boot:run
