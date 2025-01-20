@@ -12,6 +12,8 @@ import com.ricardoxavier.course.repositories.UserRepository;
 import com.ricardoxavier.course.services.exceptions.DatabaseException;
 import com.ricardoxavier.course.services.exceptions.ResourceNotFoundException;
 
+import jakarta.persistence.EntityNotFoundException;
+
 // Could be @Component but the @Service is semantic because its an UserSERVICE
 @Service
 public class UserService {
@@ -45,9 +47,13 @@ public class UserService {
 	}
 	
 	public User update(Long id, User obj) {
-		User entity = repository.getReferenceById(id);
-		updateData(entity, obj);
-		return repository.save(entity);
+		try {
+			User entity = repository.getReferenceById(id);
+			updateData(entity, obj);
+			return repository.save(entity);
+		} catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);	
+		}
 	}
 
 	// Atualiza o entity com base no que chegou no obj
